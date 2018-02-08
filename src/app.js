@@ -1,12 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';   // react-dom 中的ReactDOM方法
+import ReactDOM from 'react-dom'; // react-dom 中的ReactDOM方法
+import axios from 'axios'; // 引入 axios
 import Root from './router/router'; // 引入 router
 import store from './redux'; // 引入 store
+
 import './style/index.styl';
 
 import './assets/iconfont.css';
 import './assets/iconfont.js';
-import axios from 'axios'; // 引入 store
 
 window.store = store;
 window.axios = axios;
