@@ -17,3 +17,9 @@ __项目使用react+react-router-redux__,异步redux（redux-thunk）,请求工�
 
 ## 图片及图标
  静态资源目录为assets,使用iconfont字体图标[iconfont](http://www.iconfont.cn/)。svg图标需要在assets目录中svgs.js中引入并导出。
+
+
+-----
+
+## 增加node后台接口服务
+后台使用node(express)，加mongodb并用redis存储session。app.js 为住服务目录，server目录下models为mongodb文档对象模型，routes为路由处理。
