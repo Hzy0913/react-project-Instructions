@@ -18,6 +18,8 @@
     "__DEVELOPMENT__": false
   },
   "rules": {
+    "import/no-named-as-default": ["off"],
+    "react/jsx-closing-tag-location": ["off"],
     "comma-dangle": ["off", "never"],
     "spaced-comment": ["off", "always"],
     "func-names": ["off"],
@@ -31,6 +33,7 @@
     "react/no-danger": 0,
     "arrow-parens": 0, // 关闭箭头函数只有一个参数时需要有括号
     "array-callback-return": 0,
+    "jsx-a11y/anchor-is-valid": 0,
     "class-methods-use-this": 0,
     "consistent-return": 0,
     "global-require": 0,
@@ -61,6 +64,6 @@
     "react/prefer-stateless-function": 0,
     "react/prop-types": 0,
     "react/require-default-props": 0,
-    "react/sort-comp": 0
+    "react/sort-comp": 0,
   }
 }

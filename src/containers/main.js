@@ -1,28 +1,73 @@
 import React, {Component} from 'react';
+import TweenOne from 'rc-tween-one';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-
+import {Link} from 'react-router-dom';
 import {Layout, Menu, Breadcrumb, Icon} from 'antd';
+import {bindActionCreators} from 'redux';
+import * as authActions from '../redux/reduces/auth';
 
 const {SubMenu} = Menu;
 const {Header, Content, Sider} = Layout;
-import {Link} from 'react-router-dom';
 
+@connect(
+  state => ({auth: state.auth}),
+  dispatch => bindActionCreators(authActions, dispatch)
+)
 class Main extends Component {
-
+  static propTypes = {
+    auth: PropTypes.object
+  }
+  static contextTypes = {
+    store: PropTypes.object.isRequired,
+    router: PropTypes.object.isRequired
+  };
+  state = {
+    auth: null
+  }
+  async componentWillMount() {
+    const {authed} = this.props;
+    const {data} = await axios.get('/api/auth');
+    const {auth} = this.props;
+    console.log(data);
+    if (data.auth) {
+      console.log(this.context);
+      this.setState({auth: data.auth});
+      return this.context.router.history.push('/');
+    }
+    return this.context.router.history.push('/login');
+  }
   render() {
+    const contentStyle = {
+      background: '#fff',
+      padding: 24,
+      margin: 0,
+      minHeight: 280
+    };
+    if (!this.state.auth) {
+      return (
+        <div>Loading...</div>
+      );
+    }
     return (
       <Layout>
         <Header className="header">
-          <div className="logo"/>
+          <div className="logo" />
           <Menu
             theme="dark"
             mode="horizontal"
             defaultSelectedKeys={['2']}
             style={{lineHeight: '64px'}}
           >
-            <Menu.Item key="1"><Link to="/home">Home</Link></Menu.Item>
-            <Menu.Item key="2"><Link to="/list">list</Link></Menu.Item>
-            <Menu.Item key="3">nav 3</Menu.Item>
+            <Menu.Item key="1" >
+              <Link to="home">Home</Link>
+            </Menu.Item>
+            <Menu.Item key="2" >
+              <Link to="list" >list</Link>
+            </Menu.Item>
+            <Menu.Item key="3" >
+              <Link to="list" >list</Link>
+            </Menu.Item>
           </Menu>
         </Header>
         <Layout>
@@ -33,19 +78,19 @@ class Main extends Component {
               defaultOpenKeys={['sub1']}
               style={{height: '100%', borderRight: 0}}
             >
-              <SubMenu key="sub1" title={<span><Icon type="user"/>subnav 1</span>}>
+              <SubMenu key="sub1" title={<span><Icon type="user" />subnav 1</span>}>
                 <Menu.Item key="1">option1</Menu.Item>
                 <Menu.Item key="2">option2</Menu.Item>
                 <Menu.Item key="3">option3</Menu.Item>
                 <Menu.Item key="4">option4</Menu.Item>
               </SubMenu>
-              <SubMenu key="sub2" title={<span><Icon type="laptop"/>subnav 2</span>}>
+              <SubMenu key="sub2" title={<span><Icon type="laptop" />subnav 2</span>}>
                 <Menu.Item key="5">option5</Menu.Item>
                 <Menu.Item key="6">option6</Menu.Item>
                 <Menu.Item key="7">option7</Menu.Item>
                 <Menu.Item key="8">option8</Menu.Item>
               </SubMenu>
-              <SubMenu key="sub3" title={<span><Icon type="notification"/>subnav 3</span>}>
+              <SubMenu key="sub3" title={<span><Icon type="notification" />subnav 3</span>}>
                 <Menu.Item key="9">option9</Menu.Item>
                 <Menu.Item key="10">option10</Menu.Item>
                 <Menu.Item key="11">option11</Menu.Item>
@@ -59,9 +104,7 @@ class Main extends Component {
               <Breadcrumb.Item>List</Breadcrumb.Item>
               <Breadcrumb.Item>App</Breadcrumb.Item>
             </Breadcrumb>
-            <Content style={{background: '#fff', padding: 24, margin: 0, minHeight: 280}}>
-              {this.props.children}
-            </Content>
+            <Content style={{contentStyle}}>{this.props.children}</Content>
           </Layout>
         </Layout>
       </Layout>
