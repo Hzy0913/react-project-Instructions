@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-
 import {Steps, Button, message} from 'antd';
 
-const Step = Steps.Step;
-
-
+const {Step} = Steps;
 const steps = [{
   title: 'First',
   content: 'First-content',
@@ -37,7 +34,7 @@ class List extends Component {
     return (
       <div>
         <Steps current={current}>
-          {steps.map(item => <Step key={item.title} title={item.title}/>)}
+          {steps.map(item => <Step key={item.title} title={item.title} />)}
         </Steps>
         <div className="steps-content">{steps[this.state.current].content}</div>
         <div className="steps-action">
@@ -50,7 +47,9 @@ class List extends Component {
             this.state.current === steps.length - 1
             &&
             <Button
-              type="primary" onClick={() => message.success('Processing complete!')}>Done</Button>
+              type="primary"
+              onClick={() => message.success('Processing complete!')}
+            >Done</Button>
           }
           {
             this.state.current > 0

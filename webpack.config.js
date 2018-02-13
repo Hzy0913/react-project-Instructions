@@ -25,7 +25,7 @@ module.exports = {
           presets: ['es2015', 'react', 'stage-0']
         }
       },
-      {test: /\.js$/, use: ['eslint-loader?cache'], exclude: /node_modules/,},//eslint处理器,如需要关闭eslint只需要注释掉该行
+      {test: /\.js$/, use: 'eslint-loader', exclude: /node_modules/, enforce: 'pre'},//eslint处理器,如需要关闭eslint只需要注释掉该行
       {test: /\.css$/, loader: 'style-loader!css-loader'}, //对.css文件，使用loader里的加载器处理
       {test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader'}, //对.styl文件，使用loader里的加载器处理
       {
@@ -62,7 +62,7 @@ module.exports = {
     hot: true,                  // 启用热更新
     proxy: {                    // 跨域代理
       '/api': {
-        target: 'http://www.m.binlive.cn',
+        target: 'http://localhost:9000',
         changeOrigin: true,
         secure: false,
         pathRewrite: {

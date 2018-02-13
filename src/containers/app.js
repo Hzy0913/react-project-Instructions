@@ -32,6 +32,7 @@ class App extends Component {
   render() {
     const asd = {asd: 1};
     const asdasd = {};
+    console.log(this.props);
     return (
       <div className="node">
         <img src={bgimg} alt="" />
