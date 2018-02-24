@@ -76,6 +76,7 @@ class Login extends Component {
   };
   render() {
     console.log(this.props);
+    console.log(__PRO__);
     const emailreg = new RegExp('^[A-Za-zd0-9]+([-_.][A-Za-zd0-9]+)*@(' +
       '[A-Za-zd0-9]+[-.])+[A-Za-zd]{2,5}$');
     const {getFieldDecorator, getFieldValue} = this.props.form;

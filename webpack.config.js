@@ -53,6 +53,10 @@ module.exports = {
       hash: true,
       template: './index.html',
     }),
+    new webpack.DefinePlugin({
+      __DEVTOOLS__: process.env.NODE_ENV === 'development', //判断node环境变量为development是赋值为true
+      __PRO__: process.env.NODE_ENV === 'production', //判断node环境变量为development是赋值为true
+    }),
     new webpack.HotModuleReplacementPlugin(), // 热更新插件
   ],
   devtool: 'inline-source-map', // map文件追踪错误提示
