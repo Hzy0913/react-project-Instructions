@@ -27,7 +27,7 @@ class App extends Component {
     const test = {
       node: '1122'
     };
-    store.dispatch(authActions.login(test));
+    store.dispatch(authActions.test());
   };
   render() {
     const asd = {asd: 1};

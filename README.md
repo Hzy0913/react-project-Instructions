@@ -23,3 +23,7 @@ __项目使用react+react-router-redux__,异步redux（redux-thunk）,请求工�
 
 ## 增加node后台接口服务
 后台使用node(express)，加mongodb并用redis存储session。app.js 为住服务目录，server目录下models为mongodb文档对象模型，routes为路由处理。
+-----
+
+## 增加包大小查看器
+执行npm run build打包以后本地访问http://127.0.0.1:8888/ 即可查看

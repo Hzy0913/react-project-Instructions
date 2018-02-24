@@ -66,4 +66,11 @@ router.post('/register', async (req, res, next) => {
   }
 });
 
+router.get('/test', (req, res, next) => {
+  db.MUser.count({}, (err, docs) => {
+    res.json({docs});
+    console.log(docs);
+  });
+});
+
 module.exports = router;
