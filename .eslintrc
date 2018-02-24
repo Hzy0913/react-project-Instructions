@@ -15,7 +15,8 @@
     "$": false,  //排除定义在window对象上的$
     "__DEVTOOLS__": false,
     "__DMTEST__": false,
-    "__DEVELOPMENT__": false
+    "__DEVELOPMENT__": false,
+    "__PRO__": false
   },
   "rules": {
     "import/no-named-as-default": ["off"],

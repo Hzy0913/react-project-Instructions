@@ -7,12 +7,13 @@ import Login from '../containers/login';
 import Main from '../containers/main';
 import NotFound from '../containers/notfound';
 import List from '../containers/list';
-
+import DevTools from '../redux/DevTools';
 
 const Root = () => (
   <BrowserRouter>
     <Provider store={Store}>
       <div>
+        {__DEVTOOLS__ && <DevTools />}
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Login} />
