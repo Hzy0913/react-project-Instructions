@@ -21,15 +21,15 @@ __项目使用react+react-router-redux__,异步redux（redux-thunk）,请求工�
 
 -----
 
-## 增加node后台接口服务
+## 增加node后台接口服务  
 后台使用node(express)，加mongodb并用redis存储session。app.js 为住服务目录，server目录下models为mongodb文档对象模型，routes为路由处理。
+启动node服务需要先本地安装mongdb和redis，并保证能正常启动数据库服务。执行node app运行node服务
 
-
-  启动node服务需要先本地安装mongdb和redis，并保证能正常启动数据库服务。执行node app运行node服务
 -----
 
-## 增加依赖包大小查看器
+## 增加依赖包大小查看器  
 执行npm run build打包以后本地访问http://127.0.0.1:8888/ 即可查看
+
 -----
 
 ## 增加redux-devtools
