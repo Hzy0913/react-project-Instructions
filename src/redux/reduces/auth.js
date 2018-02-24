@@ -154,3 +154,21 @@ export function emptyStatu() {
     type: EMPTYSTATU
   };
 }
+
+export function test() {
+  return function (dispatch, getState) {
+    dispatch({
+      type: LOGIN,
+    });
+    axios.get('/api/test')
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        dispatch({
+          type: LOGIN_FAIL,
+          payload: error
+        });
+      });
+  };
+}

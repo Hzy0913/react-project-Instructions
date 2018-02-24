@@ -4,6 +4,8 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var CompressionWebpackPlugin = require('compression-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 module.exports = {
   entry: './src/app.js',
   output: {
@@ -75,6 +77,7 @@ module.exports = {
 // 根据 process.env.NODE_ENV 判断 是否为生产环境
 if (process.env.NODE_ENV === 'production') {
   module.exports.plugins = (module.exports.plugins || []).concat([
+    new BundleAnalyzerPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'
