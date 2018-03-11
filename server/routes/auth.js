@@ -35,7 +35,7 @@ router.post('/login', (req, res, next) => {
     //   res.json({err: 301, message: '您还未验证邮箱'});
     // }
     if (docs.passworld !== pass) {
-      res.json({err: 2, message: '您输入的账号密码不正确'});
+      res.json({err: 403, message: '您输入的账号密码不正确'});
     } else {
       req.session.auth = docs;
       res.json({auth: docs});

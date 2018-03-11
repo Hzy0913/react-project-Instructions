@@ -12,6 +12,8 @@ const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
 
 const EMPTYSTATU = 'auth/EMPTYSTATU';
 
+const TEST2 = 'auth/TEST2';
+
 const initialState = {
   loaded: false
 };
@@ -30,14 +32,18 @@ export default function reducer(state = initialState, action = {}) {
         requested: false,
       };
     case LOGIN_SUCCESS:
+      console.log(111);
+      console.log(action);
       return {
         ...state,
         requesting: false,
         requested: true,
-        status: action.data,
-        auth: action.data.auth
+        status: action.response,
+        auth: action.response.auth
       };
     case LOGIN_FAIL:
+      console.log(2222222);
+      console.log(action);
       return {
         ...state,
         requesting: false,
@@ -78,6 +84,12 @@ export default function reducer(state = initialState, action = {}) {
           err: ''
         }
       };
+    case TEST2:
+      console.log(action);
+      return {
+        ...state,
+        testcon: '测试内容'
+      };
     default:
       return state;
   }
@@ -102,25 +114,32 @@ export function authed() {
   };
 }
 export function login(user, pass) {
-  return function (dispatch, getState) {
-    dispatch({
-      type: LOGIN,
-    });
-    axios.post('/api/login', {user, pass})
-      .then(response => {
-        dispatch({
-          type: LOGIN_SUCCESS,
-          data: response.data
-        });
-      })
-      .catch(error => {
-        dispatch({
-          type: LOGIN_FAIL,
-          payload: error
-        });
-      });
+  return {
+    types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
+    promise: axios.post('/api/login', {user, pass}),
+    data: 12312312
   };
 }
+// export function login(user, pass) {
+//   return function (dispatch, getState) {
+//     dispatch({
+//       type: LOGIN,
+//     });
+//     axios.post('/api/login', {user, pass})
+//       .then(response => {
+//         dispatch({
+//           type: LOGIN_SUCCESS,
+//           data: response.data
+//         });
+//       })
+//       .catch(error => {
+//         dispatch({
+//           type: LOGIN_FAIL,
+//           payload: error
+//         });
+//       });
+//   };
+// }
 
 export function register(user, pass) {
   return function (dispatch, getState) {
@@ -170,5 +189,11 @@ export function test() {
           payload: error
         });
       });
+  };
+}
+export function test2() {
+  return {
+    type: TEST2,
+    text: '一些传值数据'
   };
 }
