@@ -29,6 +29,9 @@ class App extends Component {
     };
     store.dispatch(authActions.test());
   };
+  handleOk = (e) => {
+    store.dispatch(authActions.test2());
+  };
   render() {
     const asd = {asd: 1};
     const asdasd = {};
@@ -40,6 +43,7 @@ class App extends Component {
         <p>{this.state.id}</p>
         <p>{this.state.i123d}</p>
         <Button type="primary" onClick={this.handleClick}>Primary</Button>
+        <Button type="primary" onClick={this.handleOk}>Primary</Button>
         <i className="iconfont icon-shoucang" />
         <svg className="icon" aria-hidden="true" dangerouslySetInnerHTML={{__html: Artboard1}} />
         <svg className="icon" aria-hidden="true" dangerouslySetInnerHTML={{__html: Artboard}} />
