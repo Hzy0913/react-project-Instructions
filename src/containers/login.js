@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import {Layout, Menu, Breadcrumb, Icon, Form, Input, Button, Checkbox, message, Tabs} from 'antd';
+import Mavatar from 'mavatar';
 
 import * as authActions from '../redux/reduces/auth';
 
@@ -26,6 +27,14 @@ class Login extends Component {
     store: PropTypes.object.isRequired,
     router: PropTypes.object.isRequired
   };
+  componentDidMount() {
+    window.avatar = new Mavatar({
+      el: '#avatarbb',
+      width: '400px',
+      height: '400px',
+      backgroundColor: '#ff6633'
+    });
+  }
   componentWillReceiveProps(nextProps) {
     console.log(nextProps);
     const {
@@ -54,6 +63,13 @@ class Login extends Component {
       }
     });
   };
+  caijian = () => {
+    window.avatar.imageClipper();
+  }
+  czheadel = () => {
+    const a = window.avatar.resetImage();
+    console.log(a);
+  }
   loginSubmit = (e) => {
     const {login} = this.props;
     e.preventDefault();
@@ -83,6 +99,11 @@ class Login extends Component {
     const {auth: {requesting = false}} = this.props;
     const loginDom =
     (<Form className="login-form" >
+      <div style={{position: 'relative'}}>
+        <div id="avatarbb" />
+      </div>
+      <Button type="primary" onClick={this.caijian} >裁剪</Button>
+      <Button type="primary" onClick={this.czheadel} >重置</Button>
       <FormItem hasFeedback>
         {getFieldDecorator('userName', {
           rules: [
