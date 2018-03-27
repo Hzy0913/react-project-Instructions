@@ -120,27 +120,6 @@ export function login(user, pass) {
     data: 12312312
   };
 }
-// export function login(user, pass) {
-//   return function (dispatch, getState) {
-//     dispatch({
-//       type: LOGIN,
-//     });
-//     axios.post('/api/login', {user, pass})
-//       .then(response => {
-//         dispatch({
-//           type: LOGIN_SUCCESS,
-//           data: response.data
-//         });
-//       })
-//       .catch(error => {
-//         dispatch({
-//           type: LOGIN_FAIL,
-//           payload: error
-//         });
-//       });
-//   };
-// }
-
 export function register(user, pass) {
   return function (dispatch, getState) {
     dispatch({
