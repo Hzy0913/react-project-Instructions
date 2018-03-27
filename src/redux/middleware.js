@@ -13,12 +13,10 @@ export default function promiseMiddleware() {
     const [PENDING, SUCCESS, FAIL] = types;
     console.log(PENDING);
     dispatch({type: PENDING, ...rest});
-    return action.promise.then(
-      response => {
-        const {data} = response;
-        return dispatch({type: SUCCESS, response: data, ...rest});
-      }
-    ).catch((error) => {
+    return action.promise.then(response => {
+      const {data} = response;
+      return dispatch({type: SUCCESS, response: data, ...rest});
+    }).catch((error) => {
       const {data} = error;
       return dispatch({type: SUCCESS, error: data, ...rest});
     });
