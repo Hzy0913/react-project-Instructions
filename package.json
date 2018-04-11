@@ -4,9 +4,8 @@
   "description": "webpack react demo",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --content-base dist",
-    "build": "cross-env NODE_ENV=production webpack --progress",
-    "server": "cross-env NODE_ENV=server webpack --progress"
+    "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --progress --content-base dist",
+    "build": "cross-env NODE_ENV=production webpack --progress"
   },
   "author": "hzy",
   "license": "ISC",
@@ -19,7 +18,8 @@
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "redux-order": "^1.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

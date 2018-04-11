@@ -8,11 +8,15 @@ const REGISTER = 'auth/REGISTER';
 const REGISTER_SUCCESS = 'auth/REGISTER_SUCCESS';
 const REGISTER_FAIL = 'auth/REGISTER_FAIL';
 
+const LOGOUT = 'auth/LOGOUT';
 const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
 
 const EMPTYSTATU = 'auth/EMPTYSTATU';
 
 const TEST2 = 'auth/TEST2';
+
+const GETUSER = 'auth/GETUSER';
+const GETUSER_SUCCESS = 'auth/GETUSER_SUCCESS';
 
 const initialState = {
   loaded: false
@@ -32,18 +36,15 @@ export default function reducer(state = initialState, action = {}) {
         requested: false,
       };
     case LOGIN_SUCCESS:
-      console.log(111);
-      console.log(action);
+      const {data: {token = '', auth}} = action.res;
+      localStorage.setItem('tid', token);
       return {
         ...state,
         requesting: false,
         requested: true,
-        status: action.response,
-        auth: action.response.auth
+        auth
       };
     case LOGIN_FAIL:
-      console.log(2222222);
-      console.log(action);
       return {
         ...state,
         requesting: false,
@@ -61,14 +62,20 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         requesting: false,
         requested: true,
-        status: action.data
+        message: action.res.data.message
       };
     case REGISTER_FAIL:
       return {
         ...state,
-        register: false,
+        requesting: false,
         newUser: null,
         registerError: action.error
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        loggingOut: false,
+        user: null
       };
     case LOGOUT_SUCCESS:
       return {
@@ -80,12 +87,14 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         requested: false,
-        status: {
-          err: ''
-        }
+        message: ''
+      };
+    case GETUSER_SUCCESS:
+      return {
+        ...state,
+        userList: action.res.data.userList
       };
     case TEST2:
-      console.log(action);
       return {
         ...state,
         testcon: '测试内容'
@@ -99,7 +108,6 @@ export function authed() {
   return function (dispatch, getState) {
     axios.get('/api/auth')
       .then((response) => {
-        console.log(response);
         dispatch({
           type: AUTH,
           data: response.data
@@ -113,37 +121,26 @@ export function authed() {
       });
   };
 }
+
 export function login(user, pass) {
   return {
     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
-    promise: axios.post('/api/login', {user, pass}),
-    data: 12312312
+    promise: axios.post('/auth/login', {user, pass})
   };
 }
+
+
 export function register(user, pass) {
-  return function (dispatch, getState) {
-    dispatch({
-      type: LOGIN,
-    });
-    axios.post('/api/register', {user, pass})
-      .then(response => {
-        dispatch({
-          type: LOGIN_SUCCESS,
-          data: response.data
-        });
-      })
-      .catch(error => {
-        dispatch({
-          type: LOGIN_FAIL,
-          payload: error
-        });
-      });
+  return {
+    types: [REGISTER, REGISTER_SUCCESS, REGISTER_FAIL],
+    promise: axios.post('/auth/register', {user, pass})
   };
 }
 
 export function logout() {
   return {
-    type: LOGOUT_SUCCESS
+    types: [LOGOUT, LOGOUT_SUCCESS],
+    promise: axios.post('/auth/logout')
   };
 }
 
@@ -153,21 +150,10 @@ export function emptyStatu() {
   };
 }
 
-export function test() {
-  return function (dispatch, getState) {
-    dispatch({
-      type: LOGIN,
-    });
-    axios.get('/api/test')
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        dispatch({
-          type: LOGIN_FAIL,
-          payload: error
-        });
-      });
+export function getuser() {
+  return {
+    types: [GETUSER, GETUSER_SUCCESS],
+    promise: axios.get('/api/getuser')
   };
 }
 export function test2() {

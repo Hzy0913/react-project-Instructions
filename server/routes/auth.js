@@ -11,7 +11,6 @@ router.get('/auth', (req, res, next) => {
 });
 
 router.post('/login', (req, res, next) => {
-  console.log();
   const {user: userName, pass} = req.body;
   if (!userName && !pass) {
     res.json({
@@ -27,8 +26,6 @@ router.post('/login', (req, res, next) => {
   };
   console.log(userName);
   db.MUser.findOne({user: userName}, output, (err, docs) => {
-    console.log(err);
-    console.log(docs);
     if (err) { res.json({err: 404, message: '账号或密码不正确'}); return; }
     if (!docs) { res.json({err: 404, message: '账号或密码不正确'}); return; }
     // if (!docs.isregister) {

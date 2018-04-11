@@ -1,21 +1,27 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
-import {Layout, Menu, Breadcrumb, Icon} from 'antd';
+import {Alert} from 'antd';
 
-const {SubMenu} = Menu;
-const {Header, Content, Sider} = Layout;
-
-class Main extends Component {
+class Notfound extends Component {
   render() {
     return (
-      <div>
-        <p>404 not found</p>
+      <div
+        style={{
+          width: 800,
+          height: 500,
+          margin: '0 auto',
+          marginTop: '10%'
+        }}
+      >
+        <Alert
+          message="404"
+          description="页面丢失，请检查您的地址"
+          type="warning"
+          showIcon
+        />
       </div>
     );
   }
 }
 
-
 //导出组件
-export default Main;
+export default Notfound;

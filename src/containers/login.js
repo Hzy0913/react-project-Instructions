@@ -5,6 +5,8 @@ import {Link} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import {Layout, Menu, Breadcrumb, Icon, Form, Input, Button, Checkbox, message, Tabs} from 'antd';
 import Mavatar from 'mavatar';
+import loginImg from '../assets/login-img.jpg';
+import regImg from '../assets/reg-img.jpg';
 
 import * as authActions from '../redux/reduces/auth';
 
@@ -28,38 +30,30 @@ class Login extends Component {
     router: PropTypes.object.isRequired
   };
   componentDidMount() {
-    window.avatar = new Mavatar({
-      el: '#avatarbb',
-      width: '400px',
-      height: '400px',
-      backgroundColor: '#ff6633'
-    });
   }
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    const {emptyStatu} = nextProps;
     const {
       auth: {
         auth = '',
-        status: {err, message: tipmessage} = {}, requesting = '', requested = ''
-      },
-      emptyStatu
-    } = nextProps;
-    if (auth) {
-      return this.context.router.history.push('/');
-    } else if (requested) {
-      if (err) {
-        message.error(tipmessage);
-      } else {
-        message.success(tipmessage);
+        message: messageinfo
       }
+    } = nextProps;
+    if (messageinfo) {
+      message.success(messageinfo);
       emptyStatu();
+    }
+    if (auth) {
+      const tid = localStorage.getItem('tid');
+      axios.defaults.headers.tid = tid || ''; // 全局axios 设置请求头token
+      return this.context.router.history.push('/home');
     }
   }
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        // console.log('Received values of form: ', values);
       }
     });
   };
@@ -68,7 +62,6 @@ class Login extends Component {
   }
   czheadel = () => {
     const a = window.avatar.resetImage();
-    console.log(a);
   }
   loginSubmit = (e) => {
     const {login} = this.props;
@@ -90,20 +83,22 @@ class Login extends Component {
       }
     });
   };
+  onTabClick =(index) => {
+    if (index === '1') {
+      this.context.router.history.push('/login');
+    } else {
+      this.context.router.history.push('/login#register');
+    }
+  }
   render() {
-    console.log(this.props);
-    console.log(__PRO__);
     const emailreg = new RegExp('^[A-Za-zd0-9]+([-_.][A-Za-zd0-9]+)*@(' +
       '[A-Za-zd0-9]+[-.])+[A-Za-zd]{2,5}$');
     const {getFieldDecorator, getFieldValue} = this.props.form;
     const {auth: {requesting = false}} = this.props;
     const loginDom =
     (<Form className="login-form" >
-      <div style={{position: 'relative'}}>
-        <div id="avatarbb" />
-      </div>
-      <Button type="primary" onClick={this.caijian} >裁剪</Button>
-      <Button type="primary" onClick={this.czheadel} >重置</Button>
+      <img src="http://img.binlive.cn/upload/1509024953810" className="login-logo" />
+      <p className="login-admin-text"><span>React</span>Admin</p>
       <FormItem hasFeedback>
         {getFieldDecorator('userName', {
           rules: [
@@ -127,7 +122,12 @@ class Login extends Component {
           placeholder="请输入您的密码"
         />)}
       </FormItem>
-      <Button type="primary" loading={requesting} onClick={this.loginSubmit} style={{width: '100%'}} >登录</Button>
+      <Button
+        type="primary"
+        loading={requesting}
+        onClick={this.loginSubmit}
+        style={{width: '100%'}}
+      >登录</Button>
     </Form>);
     const register = (<Form onSubmit={this.handleSubmit} className="login-form">
       <FormItem hasFeedback>
@@ -174,18 +174,39 @@ class Login extends Component {
           initialValue: true,
         })(<Checkbox>记住</Checkbox>)}
       </FormItem>
-      <Button type="primary" loading={requesting} onClick={this.registerSubmit} style={{width: '100%'}}>注册</Button>
+      <Button
+        type="primary"
+        loading={requesting}
+        onClick={this.registerSubmit}
+        style={{width: '100%'}}
+      >注册</Button>
     </Form>);
     return (
       <Layout style={{position: 'fixed', width: '100%', height: '100%'}}>
-        <Header>Header</Header>
-        <Content>
-          <Tabs defaultActiveKey="1" >
-            <TabPane tab="登录" key="1">{loginDom}</TabPane>
-            <TabPane tab="注册" key="2">{register}</TabPane>
+        <Content className="form-Content">
+          <Tabs onTabClick={this.onTabClick} defaultActiveKey={window.location.hash ? '2' : '1'}>
+            <TabPane tab="登录" key="1">
+              <div className="form-box">
+                <div className="form-content">
+                  {loginDom}
+                </div>
+                <div className="form-image">
+                  <img src={loginImg} alt="" />
+                </div>
+              </div>
+            </TabPane>
+            <TabPane tab="注册" key="2">
+              <div className="form-box">
+                <div className="form-content">
+                  {register}
+                </div>
+                <div className="form-image" >
+                  <img src={regImg} alt="" style={{left: -20}} />
+                </div>
+              </div>
+            </TabPane>
           </Tabs>
         </Content>
-        <Footer>Footer</Footer>
       </Layout>
     );
   }

@@ -9,8 +9,9 @@ var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlug
 module.exports = {
   entry: './src/app.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'process.env.NODE_ENV' === 'production' ? '[name].[chunkhash].js' : '[name].bundle.js', // 在配置文件中使用`process.env.NODE_ENV',
+    path: path.resolve(__dirname, 'dist'),  // 生成文件目录，__dirname（为绝对路径） 下的dist 目录
+    publicPath: '/',
+    filename: 'process.env.NODE_ENV' === 'production' ? '[name].[hash].js' : '[hash].js', // 在配置文件中使用`process.env.NODE_ENV',
     sourceMapFilename: '[name].map'
   },
   module: {
@@ -68,13 +69,21 @@ module.exports = {
     hot: true,                  // 启用热更新
     proxy: {                    // 跨域代理
       '/api': {
-        target: 'http://localhost:9000',
+        target: 'http://localhost:7000',
         changeOrigin: true,
         secure: false,
         pathRewrite: {
           '^/api': '/api'    //后面可以使重写的新路径，一般不做更改
         }
-      }
+      },
+      '/auth': {
+        target: 'http://localhost:7000',
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: {
+          '^/auth': '/auth'    //后面可以使重写的新路径，一般不做更改
+        }
+      },
     }
   },
 };
@@ -89,7 +98,7 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new CleanWebpackPlugin(['dist']), // 清除dist目录下的旧文件
     new webpack.optimize.UglifyJsPlugin({ // 压缩js文件
-      sourceMap: false,
+      sourceMap: true,
       comments: false,
       compress: {
         warnings: false
