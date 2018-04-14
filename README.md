@@ -1,7 +1,7 @@
 # react项目
 ## 项目组成
 
-__项目使用react+react-router-redux__,异步redux（增强中间件）,请求工具为axios,按需引入antd ui组件。
+__项目使用react+react-router-redux__,异步redux（[redux-order](https://github.com/Hzy0913/redux-order)）,请求工具为axios,登录拦截以及验证token，按需引入antd ui组件。
 
 -----
 
@@ -21,7 +21,7 @@ __项目使用react+react-router-redux__,异步redux（增强中间件）,请求
 
 -----
 
-## 增加node后台接口服务  
+## 增加node后台接口服务（现用接口转为该[koa](https://github.com/Hzy0913/koaSrver)项目）  
 后台使用node(express)，加mongodb并用redis存储session。app.js 为住服务目录，server目录下models为mongodb文档对象模型，routes为路由处理。
 启动node服务需要先本地安装mongdb和redis，并保证能正常启动数据库服务。执行node app运行node服务
 
