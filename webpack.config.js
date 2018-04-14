@@ -69,7 +69,7 @@ module.exports = {
     hot: true,                  // 启用热更新
     proxy: {                    // 跨域代理
       '/api': {
-        target: 'http://localhost:7000',
+        target: 'http://mark.binlive.cn',
         changeOrigin: true,
         secure: false,
         pathRewrite: {
@@ -77,7 +77,7 @@ module.exports = {
         }
       },
       '/auth': {
-        target: 'http://localhost:7000',
+        target: 'http://mark.binlive.cn',
         changeOrigin: true,
         secure: false,
         pathRewrite: {
