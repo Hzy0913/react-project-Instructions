@@ -36,13 +36,22 @@ export default function reducer(state = initialState, action = {}) {
         requested: false,
       };
     case LOGIN_SUCCESS:
-      const {data: {token = '', auth}} = action.res;
+      const {
+        data: {
+          token = '',
+          auth,
+          err,
+          message
+        }
+      } = action.res;
       localStorage.setItem('tid', token);
       return {
         ...state,
         requesting: false,
         requested: true,
-        auth
+        auth,
+        err,
+        message
       };
     case LOGIN_FAIL:
       return {

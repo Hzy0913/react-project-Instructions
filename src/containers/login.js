@@ -36,10 +36,14 @@ class Login extends Component {
     const {
       auth: {
         auth = '',
-        message: messageinfo
+        message: messageinfo,
+        err,
       }
     } = nextProps;
-    if (messageinfo) {
+    if (err && err !== 200 && messageinfo) {
+      message.error(messageinfo);
+      emptyStatu();
+    } else if (messageinfo) {
       message.success(messageinfo);
       emptyStatu();
     }
