@@ -1,7 +1,12 @@
 # react项目
 ## 项目组成
 
-__项目使用react+react-router-redux__,异步redux（[redux-order](https://github.com/Hzy0913/redux-order)）,请求工具为axios,登录拦截以及验证token，按需引入antd ui组件。
+__项目使用react+react-router-redux__,异步redux（[redux-order](https://github.com/Hzy0913/redux-order)）,请求工具为axios,登录拦截以及验证token，按需引入antd ui组件。    
+
+
+
+> 执行npm install 安装依赖后
+> 执行npm start 运行项目， 访问http://localhost:8080
 
 -----
 
