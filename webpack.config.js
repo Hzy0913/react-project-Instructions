@@ -98,7 +98,7 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new CleanWebpackPlugin(['dist']), // 清除dist目录下的旧文件
     new webpack.optimize.UglifyJsPlugin({ // 压缩js文件
-      sourceMap: true,
+      sourceMap: false,
       comments: false,
       compress: {
         warnings: false
